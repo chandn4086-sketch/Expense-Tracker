@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Expense Tracker</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/forms.css" />
+</head>
+
+<body class="centered">
+
+  <main class="login-wrapper">
+    <form id="loginForm" class="card login-card" novalidate>
+      <header class="login-header">
+        <h1>Expense Tracker</h1>
+        <p class="subtitle">Sign in to continue</p>
+      </header>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          required
+          aria-describedby="emailError"
+        />
+        <small id="emailError" class="error"></small>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" 
+          id="password"
+          placeholder="••••••••"
+          required
+          aria-describedby="passwordError"
+        />
+        <small id="passwordError" class="error"></small>
+      </div>
+
+      <!-- General error -->
+      <p id="loginError" class="error center-text"></p>
+
+      <button type="submit" class="btn-primary">Login</button>
+
+      <p class="hint">
+       
+      </p>
+    </form>
+  </main>
+
+  <!-- Script -->
+  <script src="js/auth.js"></script>
+</body>
+</html>
