@@ -16,7 +16,7 @@ form.addEventListener("submit", function (e) {
   // Reset errors
   emailError.textContent = "";
   passwordError.textContent = "";
-  loginError.textContent = "";
+  loginError.textContent = "";  
 
   let isValid = true;
 
@@ -40,7 +40,7 @@ form.addEventListener("submit", function (e) {
     // Successful login → store session
     localStorage.setItem(
       "session",
-      JSON.stringify({ email: emailInput.value.trim() })
+      JSON.stringify({ email: emailInput.value.trim() })     //The session contains the email, stored as a JSON string,This allows other pages (like the dashboard) to check if the user is logged in.
     );
     window.location.href = "dashboard.html";
   } else {

@@ -1,17 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Expense Tracker</title>
+
+  <!-- Base styles -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <div class="stats">
-        <div class="card income">
-            <h2>monthly income</h2>
-            
-        </div>
+
+  <!-- Top bar with title and logout -->
+  <header class="topbar">
+   <header class="navbar">
+  <div class="nav-left">
+    <span class="logo"> Expense Tracker</span>
+  </div>
+
+  <nav class="nav-links">
+    <a href="dashboard.html" class="active">Home</a>
+    <a href="transaction.html">Add Expense</a>
+    <a href="transactions.html">History</a>
+    <a href="categories.html">Categories</a>
+  </nav>
+
+  <div class="nav-right">
+    <button id="logoutBtn" class="nav-btn">Logout</button>
+  </div>
+</header>
+
+  </header>
+
+  <!-- Summary cards -->
+  <main class="grid dashboard-grid">
+    <div class="card summary-card income">
+      <h3>Total Income</h3>
+      <p>₹<span id="income">0</span></p>
     </div>
+
+    <div class="card summary-card expense">
+      <h3>Total Expense</h3>
+      <p>₹<span id="expense">0</span></p>
+    </div>
+
+    <div class="card summary-card balance">
+      <h3>Balance</h3>
+      <p>₹<span id="balance">0</span></p>
+    </div>
+  </main>
+
+  <!-- Warning message -->
+  <p id="warning" class="warning center-text"></p>
+
+  <!-- Quick add transaction button -->
+  <a href="transaction.html" class="fab">+</a>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
