@@ -7,12 +7,15 @@
 
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/transaction.css" />
+  <link rel="stylesheet" href="css/components.css" />
 </head>
 <body>
 
   <!-- Navbar -->
   <header class="navbar">
-    <div class="nav-left">Expense Tracker</div>
+    <div class="nav-left">
+    <span class="logo"> Expense Tracker</span>
+  </div>
     <nav class="nav-links">
       <a href="dashboard.html">Home</a>
       <a class="active" href="add-transaction.html">Add Expense</a>
@@ -50,6 +53,7 @@
             <option>Rent</option>
             <option>Shopping</option>
             <option>Utilities</option>
+            <option>loans</option>
             <option>Other</option>
           </select>
           <span class="error" id="categoryError"></span>
