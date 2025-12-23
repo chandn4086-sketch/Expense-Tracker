@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Transaction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/transaction.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-left">Expense Tracker</div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+      <a class="active" href="add-transaction.html">Add Expense</a>
+      <a href="history.html">History</a>
+      <a href="categories.html">Categories</a>
+    </nav>
+  </header>
+ <!-- Page Content -->
+  <main class="form-wrapper">
+    <div class="glass-card">
+      <h1>Add Transaction</h1>
+      <p class="subtitle">Track your income and expenses</p>
+
+      <form id="transactionForm" novalidate>
+
+        <label>
+          Title
+          <input type="text" id="title" />
+          <span class="error" id="titleError"></span>
+        </label>
+
+        <label>
+          Amount
+          <input type="number" id="amount" />
+          <span class="error" id="amountError"></span>
+        </label>
+
+        <label>
+          Category
+          <select id="category">
+            <option value="">Select category</option>
+            <option>Salary</option>
+            <option>Food</option>
+            <option>Travel</option>
+            <option>Rent</option>
+            <option>Shopping</option>
+            <option>Utilities</option>
+            <option>Other</option>
+          </select>
+          <span class="error" id="categoryError"></span>
+        </label>
+
+        <label>
+          Date
+          <input type="date" id="date" />
+          <span class="error" id="dateError"></span>
+        </label>
+
+        <div class="toggle">
+          <label>
+            <input type="radio" name="type" value="income" checked />
+            Income
+          </label>
+          <label>
+            <input type="radio" name="type" value="expense" />
+            Expense
+          </label>
+        </div>
+
+        <button type="submit">Save Transaction</button>
+
+      </form>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/transaction.js"></script>
+</body>
+</html>
