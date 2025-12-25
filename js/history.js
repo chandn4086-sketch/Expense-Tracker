@@ -1,8 +1,13 @@
-// Route protection
+/* -------------------------
+   Route Protection
+-------------------------- */
 if (!localStorage.getItem("session")) {
   window.location.href = "index.html";
 }
 
+/* -------------------------
+   DOM Elements
+-------------------------- */
 const listEl = document.getElementById("list");
 const emptyStateEl = document.getElementById("emptyState");
 
@@ -10,12 +15,31 @@ const categoryFilter = document.getElementById("categoryFilter");
 const startDateInput = document.getElementById("startDate");
 const endDateInput = document.getElementById("endDate");
 
-let state = getState();
+/* Modal Elements */
+const modal = document.getElementById("editModal");
+const editForm = document.getElementById("editForm");
 
-// Initial render
+const editTitle = document.getElementById("editTitle");
+const editAmount = document.getElementById("editAmount");
+const editCategory = document.getElementById("editCategory");
+const editDate = document.getElementById("editDate");
+const editTypeInputs = document.querySelectorAll('input[name="editType"]');
+const cancelEditBtn = document.getElementById("cancelEdit");
+
+/* -------------------------
+   App State
+-------------------------- */
+let state = getState();
+let currentEditId = null;
+
+/* -------------------------
+   Initial Render
+-------------------------- */
 render(state.transactions);
 
-// Filters
+/* -------------------------
+   Filters
+-------------------------- */
 categoryFilter.addEventListener("change", applyFilters);
 startDateInput.addEventListener("change", applyFilters);
 endDateInput.addEventListener("change", applyFilters);
@@ -42,8 +66,11 @@ function applyFilters() {
   render(filtered);
 }
 
+/* -------------------------
+   Render List
+-------------------------- */
 function render(transactions) {
-  listEl.innerHTML = ""; // clearing container is safe
+  listEl.innerHTML = "";
   emptyStateEl.style.display = transactions.length ? "none" : "block";
 
   transactions.forEach(txn => {
@@ -55,7 +82,6 @@ function render(transactions) {
 /* -------------------------
    Row Creation
 -------------------------- */
-
 function createRow(txn) {
   const row = document.createElement("div");
   row.className = "list-item";
@@ -91,7 +117,7 @@ function createActionsCell(id) {
 
   const editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
-  editBtn.addEventListener("click", () => editTxn(id));
+  editBtn.addEventListener("click", () => openEditModal(id));
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -103,4 +129,68 @@ function createActionsCell(id) {
   return container;
 }
 
+/*
+   Delete Transaction
+ */
+function deleteTxn(id) {
+  state.transactions = state.transactions.filter(txn => txn.id !== id);
+  setState(state);
+  applyFilters();
+}
 
+/* 
+   Edit Modal Logic
+ */
+function openEditModal(id) {
+  const txn = state.transactions.find(t => t.id === id);
+  if (!txn) return;
+
+  currentEditId = id;
+
+  editTitle.value = txn.title;
+  editAmount.value = txn.amount;
+  editCategory.value = txn.category;
+  editDate.value = txn.date;
+
+  editTypeInputs.forEach(radio => {
+    radio.checked = radio.value === txn.type;
+  });
+
+  modal.classList.remove("hidden");
+}
+
+function closeModal() {
+  modal.classList.add("hidden");
+  currentEditId = null;
+}
+
+cancelEditBtn.addEventListener("click", closeModal);
+
+/* 
+   Submit Edit
+ */
+editForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (!currentEditId) return;
+
+  const updated = {
+    title: editTitle.value.trim(),
+    amount: Number(editAmount.value),
+    category: editCategory.value,
+    date: editDate.value,
+    type: document.querySelector('input[name="editType"]:checked').value,
+  };
+
+  const index = state.transactions.findIndex(t => t.id === currentEditId);
+  if (index === -1) return;
+
+  state.transactions[index] = {
+    ...state.transactions[index],
+    ...updated,
+  };
+
+  setState(state);
+  closeModal();
+  applyFilters();
+});

@@ -50,6 +50,67 @@
     <p id="emptyState" class="empty-state">No transactions found</p>
 
   </main>
+  <!-- EDIT MODAL -->
+<div id="editModal" class="modal hidden">
+
+  <form id="editForm" novalidate class="modal-card">
+
+    <h2>Edit Transaction</h2>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Title</label>
+        <input type="text" id="editTitle" />
+        <span class="error" id="editTitleError"></span>
+      </div>
+
+      <div class="field">
+        <label>Amount</label>
+        <input type="number" id="editAmount" />
+        <span class="error" id="editAmountError"></span>
+      </div>
+
+      <div class="field">
+        <label>Category</label>
+        <select id="editCategory">
+          <option>Food</option>
+          <option>Travel</option>
+          <option>Rent</option>
+          <option>Shopping</option>
+          <option>Utilities</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="editDate" />
+        <span class="error" id="editDateError"></span>
+      </div>
+    </div>
+
+    <div class="type-toggle">
+      <label>
+        <input type="radio" name="editType" value="income" />
+        Income
+      </label>
+      <label>
+        <input type="radio" name="editType" value="expense" />
+        Expense
+      </label>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" id="cancelEdit" class="btn-secondary">
+        Cancel
+      </button>
+      <button type="submit" class="btn-primary">
+        Update
+      </button>
+    </div>
+
+  </form>
+</div>
 
   <script src="js/storage.js"></script>
   <script src="js/history.js"></script>
