@@ -6,6 +6,11 @@ if (!localStorage.getItem("session")) {
 }
 
 /* -------------------------
+   Storage Keys
+-------------------------- */
+const CATEGORY_KEY = "expense_categories";
+
+/* -------------------------
    DOM Elements
 -------------------------- */
 const listEl = document.getElementById("list");
@@ -33,8 +38,10 @@ let state = getState();
 let currentEditId = null;
 
 /* -------------------------
-   Initial Render
+   Initial Setup
 -------------------------- */
+loadCategoryFilters();
+loadEditCategories();
 render(state.transactions);
 
 /* -------------------------
@@ -44,6 +51,44 @@ categoryFilter.addEventListener("change", applyFilters);
 startDateInput.addEventListener("change", applyFilters);
 endDateInput.addEventListener("change", applyFilters);
 
+/* -------------------------
+   Load Categories (Enabled Only)
+-------------------------- */
+function loadCategoryFilters() {
+  const raw = localStorage.getItem(CATEGORY_KEY);
+  const categories = raw ? JSON.parse(raw) : [];
+
+  categoryFilter.innerHTML = `<option value="all">All Categories</option>`;
+
+  categories
+    .filter(cat => cat.enabled !== false)
+    .forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat.name;
+      option.textContent = cat.name;
+      categoryFilter.appendChild(option);
+    });
+}
+
+function loadEditCategories() {
+  const raw = localStorage.getItem(CATEGORY_KEY);
+  const categories = raw ? JSON.parse(raw) : [];
+
+  editCategory.innerHTML = "";
+
+  categories
+    .filter(cat => cat.enabled !== false)
+    .forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat.name;
+      option.textContent = cat.name;
+      editCategory.appendChild(option);
+    });
+}
+
+/* -------------------------
+   Apply Filters
+-------------------------- */
 function applyFilters() {
   let filtered = [...state.transactions];
 
@@ -129,18 +174,18 @@ function createActionsCell(id) {
   return container;
 }
 
-/*
+/* -------------------------
    Delete Transaction
- */
+-------------------------- */
 function deleteTxn(id) {
   state.transactions = state.transactions.filter(txn => txn.id !== id);
   setState(state);
   applyFilters();
 }
 
-/* 
+/* -------------------------
    Edit Modal Logic
- */
+-------------------------- */
 function openEditModal(id) {
   const txn = state.transactions.find(t => t.id === id);
   if (!txn) return;
@@ -149,8 +194,11 @@ function openEditModal(id) {
 
   editTitle.value = txn.title;
   editAmount.value = txn.amount;
-  editCategory.value = txn.category;
   editDate.value = txn.date;
+
+  // Reload categories in case they changed
+  loadEditCategories();
+  editCategory.value = txn.category;
 
   editTypeInputs.forEach(radio => {
     radio.checked = radio.value === txn.type;
@@ -166,9 +214,9 @@ function closeModal() {
 
 cancelEditBtn.addEventListener("click", closeModal);
 
-/* 
+/* -------------------------
    Submit Edit
- */
+-------------------------- */
 editForm.addEventListener("submit", function (e) {
   e.preventDefault();
 

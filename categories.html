@@ -2,35 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Add Transaction</title>
+  <title>Manage Categories</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/categories.css" />
   <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/categories.css" />
 </head>
 <body>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="nav-left">
-    <span class="logo"> Expense Tracker</span>
+<header class="navbar">
+  <div class="nav-left">
+    <span class="logo">Expense Tracker</span>
   </div>
-    <nav class="nav-links">
-      <a href="dashboard.html">Home</a>
-      <a href="transaction.html">Add Expense</a>
-      <a href="history.html">Transactions</a>
-      <a class="active" href="categories.html">Categories</a>
-    </nav>
-  </header>
-   <main class="categories-wrapper glass-card">
+  <nav class="nav-links">
+    <a href="dashboard.html">Home</a>
+    <a href="transaction.html">Add Expense</a>
+    <a href="history.html">Transactions</a>
+    <a class="active" href="categories.html">Categories</a>
+  </nav>
+</header>
+
+<main class="categories-wrapper">
+
+  <!-- Add Category -->
+  <section class="glass-card add-category">
     <h2>Manage Categories</h2>
-    <p class="subtitle">Enable, disable and color-tag categories</p>
 
-    <div id="categoryList" class="category-list"></div>
-  </main>
+    <form id="categoryForm" class="category-form">
+      <input
+        type="text"
+        id="categoryName"
+        placeholder="New category name"
+        autocomplete="off"
+      />
+      <button type="submit" class="btn-primary">Add</button>
+    </form>
 
-  <script src="js/storage.js"></script>
-  <script src="js/categories.js"></script>
+    <span class="error" id="categoryError"></span>
+  </section>
+
+  <!-- Category List -->
+  <section id="categoryList" class="category-list"></section>
+
+</main>
+
+<!-- Edit Category Modal -->
+<div id="editModal" class="modal hidden">
+  <div class="modal-card">
+    <h3>Edit Category</h3>
+
+    <input
+      type="text"
+      id="editCategoryInput"
+      placeholder="Category name"
+    />
+    <span class="error" id="editCategoryError"></span>
+
+    <div class="modal-actions">
+      <button id="cancelEdit" class="btn-secondary">Cancel</button>
+      <button id="confirmEdit" class="btn-primary">Update</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/categories.js"></script>
 </body>
 </html>
