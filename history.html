@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Add Transaction</title>
+  <title>Transactions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="css/base.css" />
@@ -11,46 +11,40 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="nav-left">
-    <span class="logo"> Expense Tracker</span>
+<!-- Navbar -->
+<header class="navbar">
+  <div class="nav-left">
+    <span class="logo">Expense Tracker</span>
   </div>
-    <nav class="nav-links">
-      <a href="dashboard.html">Home</a>
-      <a href="transaction.html">Add Expense</a>
-      <a class="active" href="history.html">Transactions</a>
-      <a href="categories.html">Categories</a>
-    </nav>
-  </header>
+  <nav class="nav-links">
+    <a href="dashboard.html">Home</a>
+    <a href="transaction.html">Add Expense</a>
+    <a class="active" href="history.html">Transactions</a>
+    <a href="categories.html">Categories</a>
+  </nav>
+</header>
+
 <!-- Page Content -->
-  <main class="history-wrapper">
+<main class="history-wrapper">
 
-    <!-- Filters -->
-    <section class="filters glass-card">
-      <select id="categoryFilter">
-        <option value="all">All Categories</option>
-        <option>Salary</option>
-        <option>Food</option>
-        <option>Travel</option>
-        <option>Rent</option>
-        <option>Shopping</option>
-        <option>Utilities</option>
-        <option>Other</option>
-      </select>
+  <!-- Filters -->
+  <section class="filters glass-card">
+    <!-- Category Filter (Dynamic) -->
+    <select id="categoryFilter"></select>
 
-      <input type="date" id="startDate" />
-      <input type="date" id="endDate" />
-    </section>
+    <input type="date" id="startDate" />
+    <input type="date" id="endDate" />
+  </section>
 
-    <!-- Transactions List -->
-    <section id="list" class="list glass-card"></section>
+  <!-- Transactions List -->
+  <section id="list" class="list glass-card"></section>
 
-    <!-- Empty State -->
-    <p id="emptyState" class="empty-state">No transactions found</p>
+  <!-- Empty State -->
+  <p id="emptyState" class="empty-state">No transactions found</p>
 
-  </main>
-  <!-- EDIT MODAL -->
+</main>
+
+<!-- EDIT MODAL -->
 <div id="editModal" class="modal hidden">
 
   <form id="editForm" novalidate class="modal-card">
@@ -72,14 +66,8 @@
 
       <div class="field">
         <label>Category</label>
-        <select id="editCategory">
-          <option>Food</option>
-          <option>Travel</option>
-          <option>Rent</option>
-          <option>Shopping</option>
-          <option>Utilities</option>
-          <option>Other</option>
-        </select>
+        <!-- Category Dropdown (Dynamic) -->
+        <select id="editCategory"></select>
       </div>
 
       <div class="field">
@@ -112,7 +100,7 @@
   </form>
 </div>
 
-  <script src="js/storage.js"></script>
-  <script src="js/history.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/history.js"></script>
 </body>
 </html>
